@@ -2,6 +2,7 @@ package com.example.multitenant.service;
 
 import com.example.multitenant.model.User;
 import com.example.multitenant.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class UserService {
         return userRepository.findByTenantId(tenantId);
     }
 
+    @Transactional
     public User addUserForTenant(String tenantId, User user) {
         user.setTenantId(tenantId);
         return userRepository.save(user);
