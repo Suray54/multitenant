@@ -1,6 +1,5 @@
 package com.example.multitenant.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -26,8 +25,8 @@ public class DataSourceConfig {
         // Dynamically create data sources from application.properties
         Map<Object, Object> targetDataSources = new HashMap<>();
 
-        // Read tenant configuration from application.properties
-        String[] tenantIds = {"tenant1", "tenant2"}; // Add more tenants as needed
+        // Tenant configuration
+        String[] tenantIds = {"tenant1", "tenant2"};
 
         for (String tenantId : tenantIds) {
             String url = environment.getProperty(tenantId + ".datasource.url");
@@ -41,7 +40,6 @@ public class DataSourceConfig {
 
         // Set the target data sources and default data source
         dataSource.setTargetDataSources(targetDataSources);
-        // Default data source (you can choose the first one as the default)
         dataSource.setDefaultTargetDataSource(targetDataSources.get("tenant1"));
 
         return dataSource;
