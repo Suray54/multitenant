@@ -38,6 +38,14 @@ public class DataSourceConfig {
             }
         }
 
+        String commonUrl = environment.getProperty("common.datasource.url");
+        String commonUsername = environment.getProperty("common.datasource.username");
+        String commonPassword = environment.getProperty("common.datasource.password");
+
+        if (commonUrl != null && commonUsername != null && commonPassword != null) {
+            targetDataSources.put("common", createDataSource(commonUrl, commonUsername, commonPassword));
+        }
+
         // Set the target data sources and default data source
         dataSource.setTargetDataSources(targetDataSources);
         dataSource.setDefaultTargetDataSource(targetDataSources.get("tenant1"));
